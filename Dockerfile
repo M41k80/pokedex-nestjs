@@ -1,7 +1,8 @@
 # ==========================
 # STAGE 1: BUILD
 # ==========================
-FROM node:22-slim
+FROM node:22-slim AS builder
+
 
 WORKDIR /app
 
