@@ -20,15 +20,20 @@
   docker-compose up -d
   ```
 
-5. Reconstruir la base de datos con la seed
+
+5. Clonar el archivo __.env.template__ y renombrarlo a _.env_
+
+6. Llenar los datos en el archivo _.env_
+
+7. Ejecutar el proyecto
+   ```bash
+   yarn run start:dev
+   ``` 
+   
+8. Reconstruir la base de datos con la seed
     ```bash
     http://localhost:3000/api/v2/seed
     ```
-
-6. Ejecutar el proyecto
-   ```bash
-   yarn run start:dev
-   ```
 
 # Stack Usado
 - NestJS
