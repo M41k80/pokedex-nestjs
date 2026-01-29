@@ -5,15 +5,17 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copiamos dependencias primero (mejor cache)
-COPY package*.json ./
-RUN npm ci
+# Copiamos manifests
+COPY package.json yarn.lock ./
+
+# Instalamos dependencias
+RUN yarn install --frozen-lockfile
 
 # Copiamos el resto del código
 COPY . .
 
-# Compilamos TypeScript → JavaScript
-RUN npm run build
+# Build
+RUN yarn build
 
 
 # ==========================
@@ -26,10 +28,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NODE_OPTIONS=--max-old-space-size=512
 
-# Solo lo necesario para correr
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
-COPY package*.json ./
+COPY package.json ./
 
 EXPOSE 3000
 
